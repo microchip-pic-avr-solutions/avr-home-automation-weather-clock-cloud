@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            label ' avr-home-automation-weather-clock-cloud'
+            label 'avr-home-automation-weather-clock-cloud'
 			defaultContainer 'debian'
             yamlFile 'cloudprovider.yml'
         }
@@ -15,7 +15,7 @@ pipeline {
 	
 	environment {		
 		GITHUB_URL ='https://github.com/microchip-pic-avr-solutions/avr-home-automation-weather-clock-cloud.git'
-		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/pais/avr-home-automation-weather-clock-cloud.git'
+		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mpas/avr-home-automation-weather-clock-cloud.git'
 		DEPLOY_TOOL_URL = 'https://bitbucket.microchip.com/scm/citd/tool-github-deploy.git'
 		DEPLOY_SCRIPT_DIR = 'tool-github-deploy'
 		DEPLOY_SCRIPT_FILE = 'deploy-source-as-is.sh'
@@ -30,15 +30,6 @@ pipeline {
         stage('Checkout') {
             steps {
 				checkout scm
-            }
-        }
-
-		stage('Build') {
-            steps {
-				script {
-					execute("git clone https://bitbucket.microchip.com/scm/citd/tool-mplabx-c-build.git")						
-					execute("cd tool-mplabx-c-build && node buildLauncher.js sp=../ rp=./output genMK=true")		 
-				}
             }
         }	
 
